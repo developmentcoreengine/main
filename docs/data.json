@@ -1,14 +1,14 @@
 {
-  "temperature": 27.11,
-  "humidity": 60.82,
-  "tdc": 113.32,
-  "ph": 6.21,
-  "lux": 666,
-  "season": "spring",
+  "temperature": 25.77,
+  "humidity": 64.81,
+  "tdc": 113.7,
+  "ph": 6.22,
+  "lux": 830,
+  "season": "rain",
   "monitoring_sec": "evening",
-  "heigh_water": 8,
-  "valve_1": "off",
-  "valve_2": "off",
+  "heigh_water": 7,
+  "valve_1": "on",
+  "valve_2": "on",
   "valve_3": "off",
   "valve_4": "off"
 }
