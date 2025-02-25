@@ -1,33 +1,26 @@
 <!DOCTYPE html>
-<html lang="id">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Realtime Monitoring</title>
+    <title>Dashboard IoT Real-time</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            text-align: center;
-        }
-        .dashboard {
-            max-width: 600px;
-            margin: 20px auto;
-            padding: 20px;
+        body { font-family: Arial, sans-serif; padding: 20px; background-color: #f4f4f4; text-align: center; }
+        .card {
             background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 10px;
+            display: inline-block;
+            min-width: 200px;
+            text-align: center;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
         }
-        .data-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
+        .value {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #2196F3;
         }
         .status {
             font-weight: bold;
-        }
-        .on {
             color: green;
         }
         .off {
@@ -36,64 +29,118 @@
     </style>
 </head>
 <body>
-    <div class="dashboard">
-        <h2>Realtime Monitoring</h2>
-        <div class="data-item"><span>Suhu:</span> <span id="temperature">22.63°C</span></div>
-        <div class="data-item"><span>Kelembaban:</span> <span id="humidity">48.15%</span></div>
-        <div class="data-item"><span>TDS:</span> <span id="tdc">99.6</span></div>
-        <div class="data-item"><span>pH:</span> <span id="ph">6.4</span></div>
-        <div class="data-item"><span>Intensitas Cahaya:</span> <span id="lux">500 lux</span></div>
-        <div class="data-item"><span>Musim:</span> <span id="season">Hujan</span></div>
-        <div class="data-item"><span>Monitoring:</span> <span id="monitoring_sec">Pagi</span></div>
-        <div class="data-item"><span>Tinggi Air:</span> <span id="heigh_water">7 cm</span></div>
-        <div class="data-item"><span>Katup 1:</span> <span id="valve_1" class="status on">ON</span></div>
-        <div class="data-item"><span>Katup 2:</span> <span id="valve_2" class="status on">ON</span></div>
-        <div class="data-item"><span>Katup 3:</span> <span id="valve_3" class="status on">ON</span></div>
-        <div class="data-item"><span>Katup 4:</span> <span id="valve_4" class="status off">OFF</span></div>
+    <h1>Monitoring Lingkungan</h1>
+    
+    <div class="card">
+        <h2>Suhu</h2>
+        <div class="value" id="temperature">-</div>
+        <span>°C</span>
     </div>
+    
+    <div class="card">
+        <h2>Kelembaban</h2>
+        <div class="value" id="humidity">-</div>
+        <span>%</span>
+    </div>
+    
+    <div class="card">
+        <h2>pH</h2>
+        <div class="value" id="ph">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Intensitas Cahaya</h2>
+        <div class="value" id="lux">-</div>
+        <span>lux</span>
+    </div>
+    
+    <div class="card">
+        <h2>Musim</h2>
+        <div class="value" id="season">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Monitoring</h2>
+        <div class="value" id="monitoring_sec">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Tinggi Air</h2>
+        <div class="value" id="heigh_water">-</div>
+        <span>cm</span>
+    </div>
+    
+    <div class="card">
+        <h2>Katup 1</h2>
+        <div class="value status" id="valve_1">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Katup 2</h2>
+        <div class="value status" id="valve_2">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Katup 3</h2>
+        <div class="value status" id="valve_3">-</div>
+    </div>
+    
+    <div class="card">
+        <h2>Katup 4</h2>
+        <div class="value status" id="valve_4">-</div>
+    </div>
+    
+    <p>Terakhir diperbarui: <span id="timestamp">-</span></p>
 
     <script>
-        function updateData() {
-            const data = {
-                temperature: 22.63,
-                humidity: 48.15,
-                tdc: 99.6,
-                ph: 6.4,
-                lux: 500,
-                season: "Hujan",
-                monitoring_sec: "Pagi",
-                heigh_water: 7,
-                valve_1: "on",
-                valve_2: "on",
-                valve_3: "on",
-                valve_4: "off"
-            };
-            
-            document.getElementById("temperature").innerText = data.temperature + "°C";
-            document.getElementById("humidity").innerText = data.humidity + "%";
-            document.getElementById("tdc").innerText = data.tdc;
-            document.getElementById("ph").innerText = data.ph;
-            document.getElementById("lux").innerText = data.lux + " lux";
-            document.getElementById("season").innerText = data.season;
-            document.getElementById("monitoring_sec").innerText = data.monitoring_sec;
-            document.getElementById("heigh_water").innerText = data.heigh_water + " cm";
-            
-            const valves = ["valve_1", "valve_2", "valve_3", "valve_4"];
-            valves.forEach(valve => {
-                let element = document.getElementById(valve);
-                if (data[valve] === "on") {
-                    element.innerText = "ON";
-                    element.classList.add("on");
-                    element.classList.remove("off");
-                } else {
-                    element.innerText = "OFF";
-                    element.classList.add("off");
-                    element.classList.remove("on");
+        async function updateData() {
+            try {
+                const response = await fetch('https://developmentcoreengine.github.io/main/data.json?t=' + new Date().getTime(), {
+                    cache: "no-cache"
+                });
+        
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
                 }
-            });
+        
+                const data = await response.json();
+                document.getElementById('temperature').textContent = data.temperature.toFixed(1);
+                document.getElementById('humidity').textContent = data.humidity.toFixed(1);
+                document.getElementById('ph').textContent = data.ph;
+                document.getElementById('lux').textContent = data.lux;
+                document.getElementById('season').textContent = data.season;
+                document.getElementById('monitoring_sec').textContent = data.monitoring_sec;
+                document.getElementById('heigh_water').textContent = data.heigh_water + " cm";
+                
+                const valves = ['valve_1', 'valve_2', 'valve_3', 'valve_4'];
+                valves.forEach(valve => {
+                    let element = document.getElementById(valve);
+                    if (data[valve] === "on") {
+                        element.textContent = "ON";
+                        element.classList.add("status");
+                        element.classList.remove("off");
+                    } else {
+                        element.textContent = "OFF";
+                        element.classList.add("off");
+                        element.classList.remove("status");
+                    }
+                });
+                
+                document.getElementById('timestamp').textContent = new Date().toLocaleString();
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                document.getElementById('temperature').textContent = "Error";
+                document.getElementById('humidity').textContent = "Error";
+                document.getElementById('ph').textContent = "Error";
+                document.getElementById('lux').textContent = "Error";
+                document.getElementById('season').textContent = "Error";
+                document.getElementById('monitoring_sec').textContent = "Error";
+                document.getElementById('heigh_water').textContent = "Error";
+            }
         }
         
-        setInterval(updateData, 5000); // Simulasi pembaruan data setiap 5 detik
+        setInterval(updateData, 30000);
+        window.onload = updateData;
     </script>
 </body>
 </html>
